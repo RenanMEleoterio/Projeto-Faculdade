@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="Styles/exibicao.css">
+  <title>Listagem de Equipes</title>
+</head>
+<body>
+
+  <h2>Equipes Cadastradas</h2>
+  <ul id="listaEquipes"></ul>
+
+  <script>
+    const apiBaseUrl = 'http://localhost:5121/api/equipes';
+
+    async function carregarEquipes() {
+      const ul = document.getElementById('listaEquipes');
+      ul.innerHTML = 'Carregando...';
+
+      try {
+        const res = await fetch(apiBaseUrl);
+        const equipes = await res.json();
+
+        if (!equipes.length) {
+          ul.innerHTML = '<li>Nenhuma equipe cadastrada.</li>';
+          return;
+        }
+
+        ul.innerHTML = '';
+        equipes.forEach(equipe => {
+          const li = document.createElement('li');
+          li.textContent = `Equipe ${equipe.nome}`;
+          ul.appendChild(li);
+        });
+
+      } catch (err) {
+        ul.innerHTML = '<li>Erro ao carregar equipes.</li>';
+      }
+    }
+
+    carregarEquipes();
+  </script>
+
+</body>
+</html>

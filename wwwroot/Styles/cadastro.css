@@ -1,0 +1,128 @@
+/* Paleta: cinza escuro, cinza claro, preto, dourado e branco */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #222; /* preto clarinho */
+    color: #f5f5f5; /* branco suave */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    padding: 40px 40px 40px 20px;
+    border: 4px solid #d4af37; /* borda dourada da página toda */
+    box-sizing: border-box;
+    min-height: 100vh;
+    text-align: left; /* garante texto alinhado à esquerda */
+}
+
+form {
+    background-color: #2e2e2e; /* cinza escuro */
+    padding: 25px 60px 25px 30px;
+    border-radius: 8px;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+    /* remove centralização */
+    margin: 0; /* tirar margin auto */
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #d4af37; /* dourado */
+    text-align: left;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 2px solid #444; /* borda cinza escuro */
+    border-radius: 6px;
+    background-color: #ccc; /* cinza claro */
+    color: #222; /* texto escuro */
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    background-color: #e6e6e6; /* cinza claro mais claro */
+    border-color: #d4af37; /* borda dourada */
+    outline: none;
+    box-shadow: 0 0 8px #d4af37aa;
+}
+
+button {
+    background-color: #d4af37; /* dourado */
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    color: #1e1e1e; /* preto */
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    /* botão não precisa ser 100% largura */
+    text-align: center;
+}
+
+button:hover {
+    background-color: #b8972a; /* dourado escuro ao passar o mouse */
+}
+
+/* Pequeno ajuste para links, se houver */
+a {
+    color: #d4af37;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+nav {
+    width: 180px;
+    background-color: #d4af37; /* dourado */
+    padding: 20px;
+    height: 100vh;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #1e1e1e; /* preto para contraste com o dourado */
+  }
+  
+  nav h2 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: #1e1e1e;
+  }
+  
+  nav a {
+    display: block;
+    margin-bottom: 10px;
+    color: #1e1e1e;
+    font-weight: bold;
+  }
+  
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  main {
+    margin-left: 200px; /* espaço reservado para o menu */
+    padding: 40px;
+  }

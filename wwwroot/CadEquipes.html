@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="Styles/cadastro.css" />
+  <title>Cadastro de Equipe</title>
+</head>
+<body>
+
+  <h2>Cadastrar Nova Equipe</h2>
+  <form id="formEquipe">
+    <label>Nome da Equipe: <input type="text" id="nome" required></label><br><br>
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <script>
+    const apiBaseUrl = 'http://localhost:5121/api/equipes';
+
+    document.getElementById('formEquipe').addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const data = {
+        nome: document.getElementById('nome').value
+      };
+
+      try {
+        const response = await fetch(apiBaseUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Erro ao cadastrar equipe');
+
+        alert('Equipe cadastrada com sucesso!');
+        location.reload(); // Recarrega a página após sucesso
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  </script>
+
+</body>
+</html>

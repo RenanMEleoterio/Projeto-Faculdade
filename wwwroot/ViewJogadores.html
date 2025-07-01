@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="Styles/exibicao.css">
+  <title>Lista de Jogadores</title>
+</head>
+<body>
+
+  <h2>Jogadores Cadastrados</h2>
+  <ul id="listaJogadores">Carregando...</ul>
+
+  <script>
+    const apiJogadoresUrl = 'http://localhost:5121/api/jogadores';
+
+    async function carregarJogadores() {
+      const ul = document.getElementById('listaJogadores');
+      ul.innerHTML = 'Carregando...';
+
+      try {
+        const res = await fetch(apiJogadoresUrl);
+        const jogadores = await res.json();
+
+        if (!jogadores.length) {
+          ul.innerHTML = '<li>Nenhum jogador cadastrado.</li>';
+          return;
+        }
+
+        ul.innerHTML = '';
+        jogadores.forEach(jogador => {
+          const li = document.createElement('li');
+          li.textContent = `Jogador: ${jogador.nome} - Equipe: ${jogador.equipe?.nome ?? 'N/A'}`;
+          ul.appendChild(li);
+        });
+      } catch (err) {
+        ul.innerHTML = '<li>Erro ao carregar jogadores.</li>';
+        console.error(err); // Adiciona isso!
+      }
+    }
+
+    carregarJogadores();
+  </script>
+</body>
+</html>

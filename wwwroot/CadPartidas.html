@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="Styles/cadastro.css" />
+  <title>Cadastro de Partida</title>
+</head>
+<body>
+
+<h2>Cadastrar Partida</h2>
+<form id="formPartida">
+    <label>Data da Partida: <input type="date" id="dataPartida" required /></label><br/><br/>
+    <label>Mapa: <input type="text" id="mapa" required /></label><br/><br/>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<script>
+const apiBaseUrl = 'http://localhost:5121/api/partidas';
+
+document.getElementById('formPartida').addEventListener('submit', async e => {
+  e.preventDefault();
+
+  const dataPartida = document.getElementById('dataPartida').value;
+
+  const data = {
+    data: dataPartida,
+    mapa: document.getElementById('mapa').value
+  };
+
+  try {
+    const response = await fetch(apiBaseUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) throw new Error('Erro ao cadastrar partida');
+
+    alert('Partida cadastrada com sucesso!');
+    // Após cadastrar, limpa o campo para novo cadastro
+    document.getElementById('formPartida').reset();
+  } catch (err) {
+    alert(err.message);
+  }
+});
+</script>
+
+</body>
+</html>

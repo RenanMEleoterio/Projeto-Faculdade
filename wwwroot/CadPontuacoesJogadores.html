@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="Styles/cadastro.css" />
+  <title>Cadastro de Pontuação de Jogador</title>
+</head>
+<body>
+
+  <h2>Cadastrar Pontuação de Jogador</h2>
+  <form id="formPontuacaoJogador">
+    <label>Id da Partida: <input type="number" id="idPartida" required /></label><br />
+    <label>Id do Jogador: <input type="number" id="idJogador" required /></label><br />
+    <label>Id da Equipe: <input type="number" id="idEquipe" required /></label><br />
+    <label>Kills: <input type="number" id="kills" required /></label><br />
+    <label>Mortes: <input type="number" id="mortes" required /></label><br />
+    <label>Dano: <input type="number" step="0.1" id="dano" required /></label><br />
+    <label>Assistências: <input type="number" id="assistencias" required /></label><br />
+    <button type="submit">Cadastrar</button>
+  </form>
+
+  <script>
+    const apiBaseUrl = 'http://localhost:5121/api/pontuacoesjogadores';
+
+    document.getElementById('formPontuacaoJogador').addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const data = {
+        idPartida: parseInt(document.getElementById('idPartida').value),
+        idJogador: parseInt(document.getElementById('idJogador').value),
+        idEquipe: parseInt(document.getElementById('idEquipe').value),
+        kills: parseInt(document.getElementById('kills').value),
+        mortes: parseInt(document.getElementById('mortes').value),
+        dano: parseFloat(document.getElementById('dano').value),
+        assistencias: parseInt(document.getElementById('assistencias').value)
+      };
+
+      try {
+        const response = await fetch(apiBaseUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Erro ao cadastrar pontuação.');
+
+        alert('Pontuação cadastrada com sucesso!');
+        location.reload(); // Atualiza a página após sucesso
+      } catch (err) {
+        alert(err.message);
+      }
+    });
+  </script>
+
+</body>
+</html>

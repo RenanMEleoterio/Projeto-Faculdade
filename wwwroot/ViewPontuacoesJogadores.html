@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="Styles/exibicao.css">
+<title>Lista de Pontuações dos Jogadores</title>
+</head>
+<body>
+
+<h2>Pontuações dos Jogadores</h2>
+<ul id="listaPontuacoes"></ul>
+
+<script>
+const apiBaseUrl = 'http://localhost:5121/api/pontuacoesjogadores';
+
+async function carregarPontuacoes() {
+  const ul = document.getElementById('listaPontuacoes');
+  ul.innerHTML = 'Carregando...';
+
+  try {
+    const res = await fetch(apiBaseUrl);
+    if (!res.ok) {
+      ul.innerHTML = '<li>Erro ao carregar pontuações.</li>';
+      return;
+    }
+    const pontuacoes = await res.json();
+
+    if (!pontuacoes.length) {
+      ul.innerHTML = '<li>Nenhuma pontuação encontrada.</li>';
+      return;
+    }
+
+    ul.innerHTML = '';
+    pontuacoes.forEach(p => {
+      const li = document.createElement('li');
+      li.textContent = `Jogador: ${p.nomeJogador} | Equipe: ${p.nomeEquipe} | Mapa: ${p.nomePartida} | Kills: ${p.kills} | Mortes: ${p.mortes} | Dano: ${p.dano} | Assistências: ${p.assistencias}`;
+      ul.appendChild(li);
+    });
+  } catch (error) {
+    ul.innerHTML = '<li>Erro ao carregar pontuações.</li>';
+    console.error(error);
+  }
+}
+
+carregarPontuacoes();
+</script>
+
+</body>
+</html>

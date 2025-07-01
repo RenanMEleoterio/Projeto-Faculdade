@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="Styles/cadastro.css" />
+<title>Cadastro de Pontuação da Equipe</title>
+</head>
+<body>
+
+<h2>Cadastrar Colocação da Equipe</h2>
+<form id="formPontuacaoEquipe">
+    <label>Id da Partida: <input type="text" id="idPartida" required /></label><br/>
+    <label>Id da Equipe: <input type="text" id="idEquipe" required /></label><br/>
+    <label>Colocação: <input type="number" id="colocacao" min="1" required /></label><br/>
+    <button type="submit">Cadastrar</button>
+</form>
+
+<script>
+const apiBaseUrl = 'http://localhost:5121/api/pontuacoesequipes';
+
+document.getElementById('formPontuacaoEquipe').addEventListener('submit', async e => {
+  e.preventDefault();
+
+  const data = {
+    idPartida: parseInt(document.getElementById('idPartida').value),
+    idEquipe: parseInt(document.getElementById('idEquipe').value),
+    colocacao: parseInt(document.getElementById('colocacao').value)
+  };
+
+  try {
+    const response = await fetch(apiBaseUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) throw new Error('Erro ao cadastrar');
+
+    alert('Colocação cadastrada com sucesso!');
+    window.location.reload();  // Recarrega a página após cadastro
+  } catch (err) {
+    alert(err.message);
+  }
+});
+</script>
+
+</body>
+</html>
